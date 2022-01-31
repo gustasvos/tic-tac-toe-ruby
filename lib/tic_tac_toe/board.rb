@@ -12,8 +12,16 @@ module TicTacToe
             Array.new(3) {Array.new(3) {Cell.new}} # cria uma matriz e preenche com objetos Cell
         end
 
+        def get_cell(x,y)
+            grid[y][x]
+        end
+
         def set_cell(x, y, value)
             get_cell(x, y).value = value
+        end
+
+        def draw?
+            grid.flatten.map {|cell| cell.value}.none_empty?
         end
 
         def game_over
@@ -21,6 +29,30 @@ module TicTacToe
             return :draw if draw?
             false
         end
+
+        def winning_positions
+            grid +
+            grid.transpose +
+            diagonals
+        end
+
+        def diagonals
+            [
+                [get_cell(0,0), get_cell(1,1), get_cell(2,2)],
+                [get_cell(0,2), get_cell(1,1), get_cell(2,0)]
+            ]
+        end
+
+        def winner?
+            winning_positions.each do |winning_position|
+                next if winning_position_values(winning_position).all_empty?
+                return true if winning_position_values(winning_position).all_same?
+            end
+            false
+        end
+
+        def winning_position_values(winning_position)
+            winning_position.map {|cell| cell.value}
+        end
     end
 end
-
