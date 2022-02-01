@@ -30,12 +30,12 @@ module TicTacToe
             false
         end
 
+        
         def winning_positions
-            grid +
-            grid.transpose +
-            diagonals
+            grid + grid.transpose + diagonals
         end
 
+        # posicoes das duas diagonais no board
         def diagonals
             [
                 [get_cell(0,0), get_cell(1,1), get_cell(2,2)],
@@ -43,6 +43,7 @@ module TicTacToe
             ]
         end
 
+        # 
         def winner?
             winning_positions.each do |winning_position|
                 next if winning_position_values(winning_position).all_empty?
@@ -51,6 +52,7 @@ module TicTacToe
             false
         end
 
+        # 
         def winning_position_values(winning_position)
             winning_position.map {|cell| cell.value}
         end
