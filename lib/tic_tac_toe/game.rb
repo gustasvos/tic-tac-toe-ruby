@@ -31,12 +31,17 @@ module TicTacToe
                 puts ""
                 puts solicit_move
                 x, y = get_move
-                board.set_cell(x, y, current_player.color)
-                if board.game_over
-                    puts game_over_message
-                    board.formatted_grid
-                    return
+                k = board.get_cell(x,y)
+                # puts(k.value)
+                if k.value == "X" || k.value == "O" 
+                    solicit_move
                 else
+                    board.set_cell(x, y, current_player.color)
+                    if board.game_over
+                        puts game_over_message
+                        board.formatted_grid
+                        return
+                    end
                     switch_players
                 end
             end
